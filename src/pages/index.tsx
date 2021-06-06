@@ -38,6 +38,12 @@ export default function Home({product}: IHomeProps) {
   )
 }
 
+// CLIENT-SIDE = É o ideal na maioria das vezes, a não ser que haja
+// a necessidade de já trazer os dados e o HTML montados, geralmente necessários
+// por conta dos motores de buscas(crowlers) que normalmente fazem essa "varredura"
+// com o JAVASCRIPT desativado, ou quando essa chamada é altamente custosa, dai podemos
+// já trazer os dados de forma estática.
+
 // SSR = SERVER-SIDE RENDERING
 // Permite buscar dados no backend e montar a pagina HTML ainda neste backend antes 
 // de renderizar no browser
@@ -46,9 +52,13 @@ export default function Home({product}: IHomeProps) {
 
 // SSG = STATIC SITE GENERATION
 // Tem praticamente as mesmas funcionalidades do SSR, porém, seu diferencial é guardar
-// uma versão do HTML gerado e retornar este mesmo HTML sem precisar fazer uma nova 
+// uma versão do HTML gerado e retornar este mesmo HTML(estático) sem precisar fazer uma nova 
 // consulta à API, reduzindo o custo de processamento e o tempo de resposta do backend.
+
 // Os dados podem ser revalidados de acordo com o prazo que definirmos no campo revalidate
+// Esta opção é interessante no momento de renderizar dados comuns aos usuários, caso 
+// a consulta tenha de retornar uma informação específica de cada usuário, o SSG não serve, pois 
+// só será feita uma nova consulta à API de acordo com o prazo definido no revalidate
 
 export const getStaticProps: GetStaticProps = async () => {
   const price = await stripe.prices.retrieve('price_1Iz7R1Fvt9vVC1qeGXNO7D6p');
@@ -65,6 +75,6 @@ export const getStaticProps: GetStaticProps = async () => {
     props: {
       product
     },
-    revalidate: 24 * 60 * 60 //24 hrs
+    revalidate: 24 * 60 * 60 // 24 hours
   }
 }
