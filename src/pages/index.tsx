@@ -36,6 +36,35 @@ export default function Home({product}: IHomeProps) {
   )
 }
 
+// JAMStack = Menor dependência de um backend
+// Javascript = Funcionalidades da aplicação
+// API = API de terceiros (Fauna, CMS)
+// Markup = HTML (Estrutura da página)
+
+// CMS (Content Management System)
+// - Wordpress
+// - Drupal (caiu em desuso)
+// - Joomla (caiu em desuso)
+// - Magento (pouco recomendado)
+
+// HEADLESS CMS (Não possui a parte visual, possuem apenas o painel de administração 
+//   e todos os seus dados são servidos através de uma API HTTP, GraphQL ou SDK )
+
+// Grátis
+// - Strapi (Qualquer conteúdo)
+// - Ghost (Blog)
+// - Keystone (Qualquer conteúdo)
+
+// Pagos
+// - GraphCMS
+// - Prismic CMS 
+// - Contentful
+
+// Para e-commerce
+// - Shopify
+// - Saleor
+
+
 // CLIENT-SIDE = É o ideal na maioria das vezes, a não ser que haja
 // a necessidade de já trazer os dados e o HTML montados, geralmente necessários
 // por conta dos motores de buscas(crowlers) que normalmente fazem essa "varredura"
