@@ -10,6 +10,7 @@ import { sign } from 'crypto';
 export function SignInButton(){
     const [session] = useSession();
     const username = session?.user.name;
+    const avatar = session?.user.image;
 
     return !session ? (
         <button 
@@ -26,7 +27,10 @@ export function SignInButton(){
             className={styles.signInButton}
             type="button"
         >
-            <FaGithub color="#04B361"/> 
+            <img 
+                src={avatar} 
+                alt={username} 
+            /> 
             {username}
             <FiX
                 className={styles.closeIcon} 

@@ -5,7 +5,6 @@ import styles from './home.module.scss'
 
 import { SubscribeButton } from '../components/SubscribeButton'
 import { stripe } from '../services/stripe'
-import { browser } from 'process'
 
 interface IHomeProps {
   product: {
@@ -13,7 +12,6 @@ interface IHomeProps {
     amount: string;
   }
 }
-
 
 export default function Home({product}: IHomeProps) {
   return (

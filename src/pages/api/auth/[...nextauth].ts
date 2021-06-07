@@ -13,16 +13,11 @@ export default NextAuth({
         })
     ],
 
-    // jwt: {
-    //     signingKey: process.env.SIGNING_KEY
-    // },
-
     callbacks: {
         async signIn(user, account, profile){
             const { email } = user;
 
-            try {
-                
+            try {                
                 await fauna.query(
                     q.If(
                         q.Not(
@@ -44,8 +39,7 @@ export default NextAuth({
                             )
                         )
                     )
-                )
-    
+                )    
                 return true
                 
             } catch{
