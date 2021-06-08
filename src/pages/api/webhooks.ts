@@ -74,6 +74,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             }
         }
 
+        const cookie = "user=ignews; samesite=none; secure"
+        res.setHeader("set-cookie", [cookie])
         return res.json({received: true})
     }else{
         res.setHeader('Allow', 'POST');
