@@ -1,7 +1,7 @@
 import NextAuth from 'next-auth';
 import Providers from 'next-auth/providers';
-import { query as q } from 'faunadb';
 
+import { query as q } from 'faunadb';
 import { fauna } from '../../../services/fauna'
 
 export default NextAuth({
@@ -14,7 +14,6 @@ export default NextAuth({
     ],
 
     callbacks: {
-
         async session(session){            
             try {
                 const userActiveSubscription = await fauna.query(
@@ -80,7 +79,7 @@ export default NextAuth({
                 )    
                 return true
                 
-            } catch{
+            } catch(error){
                 return false
             }
         },

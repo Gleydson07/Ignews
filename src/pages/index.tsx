@@ -1,14 +1,14 @@
 import { GetStaticProps } from 'next'
 import Head from 'next/head'
 
-import styles from './home.module.scss'
+import { stripe } from '../services/stripe'
 
 import { SubscribeButton } from '../components/SubscribeButton'
-import { stripe } from '../services/stripe'
+
+import styles from './home.module.scss'
 
 interface IHomeProps {
   product: {
-    priceId: string;
     amount: string;
   }
 }
@@ -27,7 +27,7 @@ export default function Home({product}: IHomeProps) {
             <span>for {product.amount} month</span>
           </p>
 
-          <SubscribeButton priceId={product.priceId}/>
+          <SubscribeButton />
         </section>
 
         <img src="/images/avatar.svg" alt="Girl coding" />
@@ -91,11 +91,10 @@ export const getStaticProps: GetStaticProps = async () => {
   const price = await stripe.prices.retrieve('price_1Iz7R1Fvt9vVC1qeGXNO7D6p');
 
   const product = {
-    priceId: price.id,
     amount: new Intl.NumberFormat('en-US', {
       style: 'currency',
       currency: 'USD'
-    }).format((price.unit_amount/100)),
+    }).format(price.unit_amount/100),
   }
 
   return {

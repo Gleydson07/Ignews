@@ -2,9 +2,9 @@ import { GetStaticProps } from 'next'
 import Head from 'next/head'
 import Link from 'next/link'
 
-import { getPrismicClient } from '../../services/prismic'
 import Prismic from '@prismicio/client'
 import { RichText } from 'prismic-dom'
+import { getPrismicClient } from '../../services/prismic'
 
 import styles from './styles.module.scss'
 
@@ -57,19 +57,16 @@ export const getStaticProps: GetStaticProps = async () => {
 
     // console.log(JSON.stringify(response, null, 2));
 
-    const posts = response.results.map(post => {
-        return {
-            slug: post.uid,
-            title: RichText.asText(post.data.title),
-            excerpt: post.data.content.find(content => content.type === 'paragraph')?.text ?? '',
-            updatedAt: new Date(post.last_publication_date).toLocaleDateString('pt-BR', {
-                day: '2-digit',
-                month: 'long',
-                year: 'numeric'
-            })
-
-        }
-    })
+    const posts = response.results.map(post => ({
+        slug: post.uid,
+        title: RichText.asText(post.data.title),
+        excerpt: post.data.content.find(content => content.type === 'paragraph')?.text ?? '',
+        updatedAt: new Date(post.last_publication_date).toLocaleDateString('pt-BR', {
+            day: '2-digit',
+            month: 'long',
+            year: 'numeric'
+        })        
+    }))
 
     return {
         props: {

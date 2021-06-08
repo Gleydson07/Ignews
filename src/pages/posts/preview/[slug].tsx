@@ -1,11 +1,13 @@
+import React, { useEffect } from 'react';
+
 import { GetStaticPaths, GetStaticProps } from 'next';
+import { useRouter } from 'next/router';
 import { useSession } from 'next-auth/client';
 import Head from 'next/head';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
+
 import { RichText } from 'prismic-dom';
-import Prismic from '@prismicio/client'
-import React, { useEffect } from 'react';
+
 import { getPrismicClient } from '../../../services/prismic';
 
 import styles from '../post.module.scss'
@@ -26,6 +28,8 @@ export default function PostPreview({post}:PostPreview){
     useEffect(() => {
         if(session?.activeSubscription){
             router.push(`/posts/${post.slug}`)
+
+            return
         }
     }, [session])
     return (
@@ -47,7 +51,7 @@ export default function PostPreview({post}:PostPreview){
                         className={styles.continueReading}
                     >
                         Wanna continue reading?
-                        <Link href="">Subscribe now 🤗</Link>
+                        <Link href="/">Subscribe now 🤗</Link>
                     </div>
                 </article>
             </main>
