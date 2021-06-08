@@ -61,6 +61,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             cancel_url: process.env.STRIPE_CANCEL_URL,
         });
 
+        const cookie = "user=ignews; samesite=none; secure";
+        res.setHeader("set-cookie", [cookie]);
         return res.status(200).json({sessionId: stripeCheckoutSession.id})
     }else{
         res.setHeader('Allow', 'POST');
